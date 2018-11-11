@@ -24,9 +24,7 @@ for i  in range (3,len,2):
 if ( c != 1):
     soinsu.append(c)
 
-print (n,":",sep="",end="")
-for i in soinsu:
-    print (' {}'.format(i),sep="",end="")
-print("")
-
-
+d = n
+for i in set(soinsu):
+    d = d * (1-(1/i))
+print (int(d))
