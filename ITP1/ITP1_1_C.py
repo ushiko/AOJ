@@ -5,3 +5,4 @@ except:
     exit
 
 print (a*b,(a+b)*2)
+

@@ -2,7 +2,7 @@
 
 class Dice:
     def __init__(self):
-        self.diceNum: List[int] = [] 
+        self.diceNum = [] 
 
     def setNum(self,i):
         self.pos = i[0]
