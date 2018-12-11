@@ -1,49 +1,30 @@
-# Longest Common Subsequence
 # http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_10_C&lang=jp
+# Longest Common Subsequence: python3
+#  2018.12.04 yonezawa
 
-n = int(input())
+import sys
+input = sys.stdin.readline
+import cProfile
+def main():
+    n = int(input())
 
-while True:
-    if ( n == 0):
-        break
-    n = n -1
-    wl = {}
-    wl2 = {}
+    for i in range(n):
+        s1 = str(input()).strip()
+        s2 = str(input()).strip()
+        calc = [[0 for i in range(len(s2)+1)] for i in range(len(s1)+1)]        
+        for j in range(1,len(s1)+1):
+            for k in range(1,len(s2)+1):
+                #print (j,k)
+                if s1[j-1] == s2[k-1] :
+                    calc[j][k] = 1 + calc[j-1][k-1]
+                elif calc[j-1][k] > calc[j][k-1]:
+                    calc[j][k] = calc[j-1][k]
+                else:
+                    calc[j][k] = calc[j][k-1]
+        print (calc[j][k])
 
-    str2 = str(input())
-    str1 = str(input())
-
-    for i in set(str1):
-        cl = []
-        for j in range(0,len(str2)):
-            if (i == str2[j]):
-                cl.append(j)
-        wl[i] = cl
-
-    for i in set(str2):
-        cl = []
-        for j in range(0,len(str1)):
-            if (i == str1[j]):
-                cl.append(j)
-        wl2[i] = cl
-
-    print (str1,str2,wl,wl2)
-    max_cnt = 0
-    for i in range(0,len(str1)):
-        pos = cnt = 0
-        for j in str1[i:]:
-            tl = []
-            tl = list(filter(lambda a: a >= pos , wl[j]))
-            print ("cnt=",cnt," pos=",pos," len=",len(str2)," j=",j,sep="")
-            print ("targetlist:",tl)
-            print (str1[i:],str2[:pos],str2[pos:])
-            if (len(tl) < 1):
-                break
-            cnt += 1
-            print ("pos:",pos,"->",tl[0]+1)
-            pos = tl[0] + 1
-        if (cnt > max_cnt):
-            max_cnt = cnt
-        print("###############################")
-    print (max_cnt)
-
+if __name__ == '__main__':
+    #main()
+    pr = cProfile.Profile()
+    pr.runcall(main)
+    pr.print_stats()
